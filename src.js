@@ -12,39 +12,17 @@ if (document.getElementById('payment') !== undefined) {
 	document.getElementById('payment').onsubmit = () => {
 		if (document.getElementById('id_amount').value === "" || document.getElementById('id_tp_account').value === "")
 			return;
-		let currency = '';
-		switch (document.getElementById('id_tp_account').value) {
-			case 149:
-				currency = 'EUR';
-				break;
-			case 148:
-				currency = 'USD';
-				break;
-		}
-		fetch('https://api.affcountry.com/api/deposit/', {
-			method: 'POST',
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				'email': getCookie('email'),
-				'session_id': getCookie('tracksession'),
 				'service_api_key': API_KEY,
-				'amount': document.getElementById('id_amount').value,
-				"currency": currency
+				'is_click_deposit_button': true
 			})
 		})
-		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					'email': getCookie('email'),
-					'service_api_key': API_KEY,
-					'is_click_deposit_button': true
-				})
-			})
 	}
 }
 
@@ -67,8 +45,7 @@ if (document.getElementsByClassName('sendButton_d1b').length > 0) {
 	}
 }
 
-if(window.location.href.includes('accounts/password/change'))
-{
+if (window.location.href.includes('accounts/password/change')) {
 	document.getElementById('form').onsubmit = () => {
 		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
 			method: 'PUT',
