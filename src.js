@@ -31,23 +31,26 @@ if (document.getElementById('payment') !== null) {
 	}
 }
 
-
-if (document.getElementsByClassName('sendButton_d1b').length > 0) {
-	document.getElementsByClassName('sendButton_d1b')[0].onclick = () => {
-		if (isCookie('tracksession')) {
-			fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					'email': getCookie('email'),
-					'service_api_key': API_KEY,
-					'is_write_to_support': true
+bindSupportTracker();
+function bindSupportTracker() {
+	if (document.getElementsByClassName('sendButton_d1b').length > 0) {
+		document.getElementsByClassName('sendButton_d1b')[0].onclick = () => {
+			if (isCookie('tracksession')) {
+				fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						'email': getCookie('email'),
+						'service_api_key': API_KEY,
+						'is_write_to_support': true
+					})
 				})
-			})
+			}
 		}
 	}
+	setTimeout(bindSupportTracker, 1000);
 }
 
 if (window.location.href.includes('dashboard/contact')) {
@@ -123,7 +126,9 @@ for (let i = 0; i < links.length; i++) {
 	else if (links[i].href.includes("https://katanainvest.com/ru/about/contacts"))
 		links[i].onclick = onclickcontacts;
 	else
-		links[i].onclick = ()=>{onclicklink(i)};
+		links[i].onclick = () => {
+			onclicklink(i)
+		};
 }
 
 function onlogout() {
