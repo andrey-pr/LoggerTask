@@ -1,14 +1,14 @@
 let API_KEY = '80f0fb17268c43adb6f1e2bb51a67940';
 
 
-if (document.getElementById('auth-login') !== undefined) {
+if (document.getElementById('auth-login') !== null) {
 	document.getElementById('auth-login').onsubmit = () => {
 		setCookie('email', document.getElementById('id_login').value)
 	}
 }
 
 
-if (document.getElementById('payment') !== undefined) {
+if (document.getElementById('payment') !== null) {
 	document.getElementById('payment').onsubmit = () => {
 		if (document.getElementById('id_amount').value === "" || document.getElementById('id_tp_account').value === "")
 			return;
