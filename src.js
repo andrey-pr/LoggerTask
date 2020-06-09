@@ -34,8 +34,8 @@ if (document.getElementById('payment') !== undefined) {
 				"currency": currency
 			})
 		})
-		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession'), {
-				method: 'POST',
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -52,8 +52,8 @@ if (document.getElementById('payment') !== undefined) {
 if (document.getElementsByClassName('sendButton_d1b').length > 0) {
 	document.getElementsByClassName('sendButton_d1b')[0].onclick = () => {
 		if (isCookie('tracksession')) {
-			fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession'), {
-				method: 'POST',
+			fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -70,8 +70,8 @@ if (document.getElementsByClassName('sendButton_d1b').length > 0) {
 if(window.location.href.includes('accounts/password/change'))
 {
 	document.getElementById('form').onsubmit = () => {
-		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession'), {
-			method: 'POST',
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -131,8 +131,8 @@ for (let i = 0; i < links.length; i++) {
 function onlogout() {
 	if (isCookie('tracksession')) {
 		let datetime = new Date();
-		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession'), {
-			method: 'POST',
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -149,8 +149,8 @@ function onlogout() {
 
 function onclickplatform(e) {
 	if (isCookie('tracksession')) {
-		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession'), {
-			method: 'POST',
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -165,8 +165,8 @@ function onclickplatform(e) {
 
 function onclickpersonalaccount(e) {
 	if (isCookie('tracksession')) {
-		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession'), {
-			method: 'POST',
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -181,8 +181,8 @@ function onclickpersonalaccount(e) {
 
 function onclickcontacts(e) {
 	if (isCookie('tracksession')) {
-		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession'), {
-			method: 'POST',
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -197,15 +197,12 @@ function onclickcontacts(e) {
 
 function onclicklink(e) {
 	if (isCookie('tracksession')) {
-		fetch('https://api.affcountry.com/api/session/', {
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/click_url/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				'email': getCookie('email'),
-				'session_id': getCookie('tracksession'),
-				'service_api_key': API_KEY,
 				'url': e.target.href
 			})
 		})
