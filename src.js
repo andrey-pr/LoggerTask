@@ -6,6 +6,11 @@ if (document.getElementById('auth-login') !== null) {
 		setCookie('email', document.getElementById('id_login').value)
 	}
 }
+if (document.getElementById('auth') !== null) {
+	document.getElementById('auth').onsubmit = () => {
+		setCookie('email', document.getElementById('id_email').value)
+	}
+}
 
 
 if (document.getElementById('payment') !== null) {
@@ -42,6 +47,22 @@ if (document.getElementsByClassName('sendButton_d1b').length > 0) {
 				})
 			})
 		}
+	}
+}
+
+if (window.location.href.includes('dashboard/contact')) {
+	document.getElementById('form').onsubmit = () => {
+		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				'email': getCookie('email'),
+				'service_api_key': API_KEY,
+				'is_write_to_support': true
+			})
+		})
 	}
 }
 
@@ -102,7 +123,7 @@ for (let i = 0; i < links.length; i++) {
 	else if (links[i].href.includes("https://katanainvest.com/ru/about/contacts"))
 		links[i].onclick = onclickcontacts;
 	else
-		links[i].onclick = onclicklink;
+		links[i].onclick = ()=>{onclicklink(i)};
 }
 
 function onlogout() {
@@ -172,7 +193,7 @@ function onclickcontacts(e) {
 	}
 }
 
-function onclicklink(e) {
+function onclicklink(i) {
 	if (isCookie('tracksession')) {
 		fetch('https://api.affcountry.com/api/session/' + getCookie('tracksession') + '/click_url/', {
 			method: 'POST',
@@ -180,9 +201,9 @@ function onclicklink(e) {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				'url': e.target.href
+				'url': links[i].href
 			})
-		})
+		});
 	}
 }
 
