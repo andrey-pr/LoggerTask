@@ -89,6 +89,11 @@ if (window.location.href.includes('accounts/password/change')) {
 }
 
 
+if(isCookie('tracksession')) {
+	setCookie('tracksession', getCookie('tracksession'), {'max-age': 10800});
+}
+
+
 if (isCookie('email') && !isCookie('tracksession')) {
 	fetch('https://api.affcountry.com/api/session/', {
 		method: 'POST',
@@ -113,7 +118,7 @@ if (isCookie('email') && !isCookie('tracksession')) {
 		})
 		.then(response => {
 			console.log(response);
-			setCookie('tracksession', response.session_id)
+			setCookie('tracksession', response.session_id, {'max-age': 10800})
 		})
 }
 
