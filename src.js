@@ -9,6 +9,17 @@ if (document.getElementById('auth-login') !== null) {
 if (document.getElementById('auth') !== null) {
 	document.getElementById('auth').onsubmit = () => {
 		setCookie('email', document.getElementById('id_email').value)
+		fetch('https://api.affcountry.com/api/session/', { // TODO url
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				'email': getCookie('email'),
+				'service_api_key': API_KEY,
+				'phone_number': document.getElementById('id_phone')
+			})
+		})
 	}
 }
 
